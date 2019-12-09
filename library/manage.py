@@ -32,19 +32,22 @@ def init():
     click.echo("created user admin")
 
     click.echo("create books")
-    db.session.add_all([
-        Book(title=title) for title in (
-            'Alice au pays des merveilles',
-            'أليس في بلاد العجائب',
-            'Troioù-kaer Alis e Bro ar Marzhoù',
-            'אליס בארץ הפלאות',
-            'Eachtraí Eilíse i dTír na nIontas',
-            'Alice in Wondeland',
-            'Dracula',
-            'Ulysses',
-            'Dubliners',
-        )
-    ])
+    db.session.add_all(
+        [
+            Book(title=title)
+            for title in (
+                "Alice au pays des merveilles",
+                "أليس في بلاد العجائب",
+                "Troioù-kaer Alis e Bro ar Marzhoù",
+                "אליס בארץ הפלאות",
+                "Eachtraí Eilíse i dTír na nIontas",
+                "Alice in Wondeland",
+                "Dracula",
+                "Ulysses",
+                "Dubliners",
+            )
+        ]
+    )
 
     db.session.commit()
     click.echo("created some titles")

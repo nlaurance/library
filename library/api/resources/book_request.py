@@ -28,18 +28,11 @@ class BookRequestList(Resource):
     """
 
     def get(self):
-        book_request_data = (
-            db.session.query(
-                BookRequest.email,
-                BookRequest.id,
-                BookRequest.timestamp,
-                Book.title
-            )
-            .join(Book, BookRequest.book_id==Book.id)
-        )
+        book_request_data = db.session.query(
+            BookRequest.email, BookRequest.id, BookRequest.timestamp, Book.title
+        ).join(Book, BookRequest.book_id == Book.id)
         schema = BookRequestSchema()
         return schema.dump(book_request_data, many=True).data
-
 
     def post(self):
         schema = BookRequestSchema()
@@ -49,16 +42,13 @@ class BookRequestList(Resource):
 
         book = (
             db.session.query(Book)
-            .filter(Book.title == book_request_data['title'])
+            .filter(Book.title == book_request_data["title"])
             .first()
         )
         if book is None:
             return {"error": "unknown title"}, 400
 
-        book_request = BookRequest(
-            email=book_request_data['email'],
-            book_id=book.id
-        )
+        book_request = BookRequest(email=book_request_data["email"], book_id=book.id)
         db.session.add(book_request)
         db.session.commit()
         book_request.title = book.title

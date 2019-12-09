@@ -9,14 +9,10 @@ from library.extensions import db as _db
 
 @pytest.fixture
 def book_request(db):
-    book_request = BookRequest(
-        email="me@myself.com",
-        book_id=1,
-    )
+    book_request = BookRequest(email="me@myself.com", book_id=1,)
     db.session.add(book_request)
     db.session.commit()
     return book_request
-
 
 
 @pytest.fixture

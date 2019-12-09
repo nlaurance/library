@@ -13,8 +13,6 @@ class Book(db.Model):
         return "<Book %s>" % self.title
 
 
-
-
 class BookRequest(db.Model):
     """ A library user requested a book
     """
@@ -23,10 +21,8 @@ class BookRequest(db.Model):
     email = db.Column(db.String(80), unique=True, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'),
-                        nullable=False)
-    book = db.relationship('Book',
-                           backref=db.backref('requests', lazy=True))
+    book_id = db.Column(db.Integer, db.ForeignKey("book.id"), nullable=False)
+    book = db.relationship("Book", backref=db.backref("requests", lazy=True))
 
     def __repr__(self):
         return "<BookRequest %s>" % self.id
