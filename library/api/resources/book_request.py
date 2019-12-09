@@ -1,10 +1,8 @@
 from flask import request
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required
 
-from library.models import Book, BookRequest
 from library.extensions import ma, db
-from library.commons.pagination import paginate
+from library.models import Book, BookRequest
 
 
 class BookSchema(ma.ModelSchema):
@@ -57,6 +55,9 @@ class BookRequestList(Resource):
 
 
 class BookRequestResource(Resource):
+    """
+    unit get, and deletion
+    """
     def get(self, request_id):
         schema = BookRequestSchema()
         book_request = BookRequest.query.get_or_404(request_id)
